@@ -1,0 +1,35 @@
+{
+  "name": "unitvalue",
+  "version": "1.0.0",
+  "description": "convert unit value",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --no-cache",
+    "debugger": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand --no-cache --no-watchman",
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walker27/unitValue.git"
+  },
+  "keywords": [
+    "convert",
+    "unit",
+    "value"
+  ],
+  "author": "walker27",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/walker27/unitValue/issues"
+  },
+  "homepage": "https://github.com/walker27/unitValue#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.4",
+    "jest": "^26.1.0",
+    "rollup": "^2.21.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "ts-jest": "^26.1.2",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.6"
+  }
+}
