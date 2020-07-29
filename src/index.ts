@@ -81,7 +81,6 @@ export class ValueType {
         if (baseVal >= iUnit.triggerThreshold) {
           targetUnit = iUnit;
           break;
-          // return { value: `${bess}${fixNumber(baseValue, dec, Math.max(threshold, 1))}`, unit: iUnit, threshold: Math.max(threshold, 1) };
         }
       }
     } else {
@@ -123,38 +122,20 @@ class ValueTypeHub {
   }
 }
 
-/**
- * usage:
- * 
- * + dec采用顺序：func入参 > unit属性 > UnitValue内置精度(6位)
- * 
- * func
- *  .registerValueType([
- *    unit(unitName: 'kW', threshold? = 0, triggerThreshold? = threshold),
- *    unit('MW', 1000, 10000),
- *    unit('GW', 1000 * 1000),
- *  ])
- *  .registerValueType([
- *    unit('元'),
- *    unit('万元', 10000, 100000),
- *  ], valueTypeName: 'money');
- * func(value, unit?, dec? = 2)
- */
-
-function main(value: unknown, unit?: string, dec?: number, useValueType?: string | ValueType): UnitValue {
+function main(value: unknown, unitName?: string, dec?: number, useValueType?: string | ValueType): UnitValue {
   // 1. value: unknown  => number | null
   const fixedValue = constraintValue(value);
-  if (!unit) return new UnitValue(fixedValue);
+  if (!unitName) return new UnitValue(fixedValue);
   const hub = main._valueTypeHub;
   const vT: null | ValueType = (() => {
     if (useValueType) {
       return useValueType instanceof ValueType ? useValueType : hub.use(useValueType);
     }
-    return hub.match(unit);
+    return hub.match(unitName);
   })();
-  if (!vT) return new UnitValue(fixedValue, unit);
+  if (!vT) return new UnitValue(fixedValue, unitName);
 
-  const uv = new UnitValue(value as number, unit, vT, dec);
+  const uv = new UnitValue(value as number, unitName, vT, dec);
 
   return uv;
 }
